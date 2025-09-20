@@ -1,0 +1,17 @@
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body, html {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  font-family: 'Inter', sans-serif;
+  color: white;
+}
+
+.centered h1 {
+  font-size: 4rem;
+  letter-spacing: 4px;
+  text-align: center;
+}
