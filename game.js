@@ -20,7 +20,7 @@ function a() {
 		}
 	}
 
-function a3() {
+	function a3() {
 		if (b && b.readyState === b.OPEN) {
 			var i = new a6;
 			i.a7(1608);
@@ -46,6 +46,7 @@ function a3() {
 	function a4() {
 		b && (b.onclose = null, b.onopen = null, b = null)
 	}
+
 	window.addEventListener("error", function d(e) {
 		c = "";
 		try {
@@ -62,7 +63,6 @@ function a3() {
 		q()
 	})
 }
-
 function bt(bu) {
 	l && !bu || (bw(), bL = new bx, bK = new by, bA = new bz, bB = new c0, aD = new c1, b7 = new c2, bF = new c3, bG = new c4, aE = new c5, aF = new c6, aG = new c7, aH = new c8, aI = new c9, aJ = new cA, aK = new cB, aL = new cC, aM = new cD, aN =
 		new cE, aO = new cF, aP = new cG, aQ = new cH, aR = new cI, aS = new cJ, aT = new cK, aU = new cL, aV = new cM, aW = new cN, aX = new cO, aY = new cP, aZ = new cQ, aa = new cR, ab = new cS, ac = new cT, ak = new cU, al = new cV, an =
