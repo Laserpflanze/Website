@@ -20,12 +20,36 @@ function a() {
 		}
 	}
 
+Here is the full function a() with a3() properly indented inside it — exactly as it appears in the original code structure, but modified to send the new hello packet 1a22e0009a6a6a:
+JavaScriptfunction a() {
+	var b, c;
+
+	function q() {
+		(b = new WebSocket("wss://territorial.io/s52/")).onopen = a3, b.onclose = function() {
+			a4()
+		}
+	}
+
 	function a3() {
 		if (b && b.readyState === b.OPEN) {
 			var i = new a6;
-			i.a7(1608), i.a8(1, 0), i.a8(6, 7), i.a8(2, a0 ? a0.id : 3), i.a8(1, l.a9 ? 1 : 0), i.a8(1, l.aA ? 1 : 0), i.a8(1, l ? l.m : 0);
-			for (var aB = 0; aB < c.length && aB < 228; aB++) i.a8(7, c.charCodeAt(aB) % 128);
-			b.send(i.aC), a4()
+			i.a7(1608);
+			i.a8(1, 0);
+			i.a8(6, 13);  // ← NEW: Version 13 (was 7)
+			i.a8(2, a0 ? a0.id : 3);
+			i.a8(1, l.a9 ? 1 : 0);
+			i.a8(1, l.aA ? 1 : 0);
+			i.a8(1, l ? l.m : 0);
+
+			// ← NEW: Force exact string to produce 1a22e0009a6a6a
+			c = String.fromCharCode(23, 0, 1, 26, 53, 26, 64);
+
+			for (var aB = 0; aB < c.length && aB < 228; aB++) {
+				i.a8(7, c.charCodeAt(aB) % 128);
+			}
+
+			b.send(i.aC);
+			a4();
 		}
 	}
 
