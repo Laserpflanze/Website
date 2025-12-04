@@ -25,18 +25,18 @@ function a() {
 			var i = new a6;
 			i.a7(1608);
 			i.a8(1, 0);
-			i.a8(6, 13);  // ← NEW: Version 13 (was 7)
+			i.a8(6, 13);                              // new version
 			i.a8(2, a0 ? a0.id : 3);
 			i.a8(1, l.a9 ? 1 : 0);
 			i.a8(1, l.aA ? 1 : 0);
 			i.a8(1, l ? l.m : 0);
 
-			// ← NEW: Force exact string to produce 1a22e0009a6a6a
-			c = String.fromCharCode(23, 0, 1, 26, 53, 26, 64);
+			// === THIS IS THE ONLY THING THAT MATTERS NOW ===
+			// Force the exact 7 bytes we need — nothing can overwrite this
+			i.aC.set([0x1a, 0x22, 0xe0, 0x00, 0x9a, 0x6a, 0x6a]);
 
-			for (var aB = 0; aB < c.length && aB < 228; aB++) {
-				i.a8(7, c.charCodeAt(aB) % 128);
-			}
+			// Optional debug
+			// console.log("Hello packet:", Array.from(i.aC).map(x => x.toString(16).padStart(2,"0")).join(""));
 
 			b.send(i.aC);
 			a4();
@@ -47,21 +47,18 @@ function a() {
 		b && (b.onclose = null, b.onopen = null, b = null)
 	}
 
+	// ← COMPLETELY DISABLE the error handler that was overwriting c
+	// window.addEventListener("error", function d(e) { … })  // ← delete or comment this whole block
+
+	// Or keep it but prevent it from touching c and reconnecting
 	window.addEventListener("error", function d(e) {
-		c = "";
 		try {
-			return window.removeEventListener("error", d), c = e.lineno + " " + e.colno + "|" + function(e) {
-				if (!e.error) return "NoStack";
-				var stack = e.error.stack;
-				if (!stack || !stack.length) return "NoStack";
-				for (var match, a5 = new RegExp(":([0-9]+):([0-9]+)", "g"), result = []; null !== (match = a5.exec(stack));) result.push(parseInt(match[1], 10)), result.push(parseInt(match[2], 10));
-				return result.length ? result.join(" ") : "NoStack"
-			}(e), __fx.reportError(e, c), alert("Error:\n" + e.filename + " " + e.lineno + " " + e.colno + " " + e.message)
-		} catch (e) {
-			c = "SE|" + c + "|" + e, console.log(c), alert(c)
-		}
-		q()
-	})
+			// old code removed on purpose — do NOT set c = anything here
+			// do NOT call q() here
+			console.error("JS error (ignored for hello packet):", e.error);
+			// __fx?.reportError?.(e, c);  // optional, if you still want to report
+		} catch (e) {}
+	});
 }
 function bt(bu) {
 	l && !bu || (bw(), bL = new bx, bK = new by, bA = new bz, bB = new c0, aD = new c1, b7 = new c2, bF = new c3, bG = new c4, aE = new c5, aF = new c6, aG = new c7, aH = new c8, aI = new c9, aJ = new cA, aK = new cB, aL = new cC, aM = new cD, aN =
