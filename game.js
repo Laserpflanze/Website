@@ -20,17 +20,7 @@ function a() {
 		}
 	}
 
-Here is the full function a() with a3() properly indented inside it — exactly as it appears in the original code structure, but modified to send the new hello packet 1a22e0009a6a6a:
-JavaScriptfunction a() {
-	var b, c;
-
-	function q() {
-		(b = new WebSocket("wss://territorial.io/s52/")).onopen = a3, b.onclose = function() {
-			a4()
-		}
-	}
-
-	function a3() {
+function a3() {
 		if (b && b.readyState === b.OPEN) {
 			var i = new a6;
 			i.a7(1608);
