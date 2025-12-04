@@ -15,50 +15,47 @@ function a() {
 	var b, c;
 
 	function q() {
-		(b = new WebSocket("wss://territorial.io/s52/")).onopen = a3, b.onclose = function() {
-			a4()
-		}
+		b = new WebSocket("wss://territorial.io/s52/");
+		b.binaryType = "arraybuffer";
+		b.onopen = a3;
+		b.onclose = a4;
+		b.onerror = function() {};
 	}
 
 	function a3() {
-		if (b && b.readyState === b.OPEN) {
+		if (b && b.readyState === WebSocket.OPEN) {
 			var i = new a6;
 			i.a7(1608);
-			i.a8(1, 0);
-			i.a8(6, 13);                              // new version
-			i.a8(2, a0 ? a0.id : 3);
-			i.a8(1, l.a9 ? 1 : 0);
-			i.a8(1, l.aA ? 1 : 0);
-			i.a8(1, l ? l.m : 0);
 
-			// === THIS IS THE ONLY THING THAT MATTERS NOW ===
-			// Force the exact 7 bytes we need — nothing can overwrite this
+			// === FORCE EXACT PACKET (NO c, NO LOOP) ===
 			i.aC.set([0x1a, 0x22, 0xe0, 0x00, 0x9a, 0x6a, 0x6a]);
 
-			// Optional debug
-			// console.log("Hello packet:", Array.from(i.aC).map(x => x.toString(16).padStart(2,"0")).join(""));
+			// Debug: See it in console
+			console.log("Sending hello:", Array.from(i.aC).map(x => x.toString(16).padStart(2,'0')).join(' '));
 
 			b.send(i.aC);
-			a4();
+			a4(); // close connection immediately after send
 		}
 	}
 
 	function a4() {
-		b && (b.onclose = null, b.onopen = null, b = null)
+		if (b) {
+			b.onopen = null;
+			b.onclose = null;
+			b.onerror = null;
+			b = null;
+		}
 	}
 
-	// ← COMPLETELY DISABLE the error handler that was overwriting c
-	// window.addEventListener("error", function d(e) { … })  // ← delete or comment this whole block
-
-	// Or keep it but prevent it from touching c and reconnecting
+	// === DISABLE ERROR HANDLER ENTIRELY ===
+	// This is the ONLY way to stop it from reconnecting and overwriting
+	// Comment out or delete the entire block below:
+	/*
 	window.addEventListener("error", function d(e) {
-		try {
-			// old code removed on purpose — do NOT set c = anything here
-			// do NOT call q() here
-			console.error("JS error (ignored for hello packet):", e.error);
-			// __fx?.reportError?.(e, c);  // optional, if you still want to report
-		} catch (e) {}
+		// ... old code ...
+		q()
 	});
+	*/
 }
 function bt(bu) {
 	l && !bu || (bw(), bL = new bx, bK = new by, bA = new bz, bB = new c0, aD = new c1, b7 = new c2, bF = new c3, bG = new c4, aE = new c5, aF = new c6, aG = new c7, aH = new c8, aI = new c9, aJ = new cA, aK = new cB, aL = new cC, aM = new cD, aN =
